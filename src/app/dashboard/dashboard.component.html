@@ -1,0 +1,21 @@
+<!-- Grid of read‑only connection previews -->
+<div class="grid">
+  <div class="tile" *ngFor="let conn of connections">
+    <div class="frame-container">
+      <!-- Connection preview iframe. Pointer events disabled via CSS. -->
+      <iframe [src]="getIframeSrc(conn)" frameborder="0"></iframe>
+      <div class="overlay">
+        <span class="title">{{ conn.name }}</span>
+        <button class="maximize" (click)="openConnection(conn)" title="Maximize" aria-label="Maximize">⬞</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Full‑screen modal when a connection is maximized -->
+<div class="modal" *ngIf="maximizing && selected">
+  <div class="modal-content">
+    <button class="close" (click)="closeConnection()" aria-label="Close">✕</button>
+    <iframe [src]="getIframeSrc(selected!)" frameborder="0"></iframe>
+  </div>
+</div>
